@@ -24,13 +24,21 @@ jobs:
           "value=$version" >> $env:GITHUB_OUTPUT
 
       - name: Configure
-        run: cmake -S . -B build -A x64 -DAPP_VERSION=${{ steps.version.outputs.value }}
+        # Guillemets obligatoires : PowerShell coupe -DAPP_VERSION=1.0.0 au premier point
+        run: cmake -S . -B build -A x64 "-DAPP_VERSION=${{ steps.version.outputs.value }}"
 
       - name: Build
         run: cmake --build build --config Release --parallel
 
       - name: Tests
         run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: Check version
+        shell: pwsh
+        run: |
+          $out = & build\Release\spout_stream.exe --version
+          if ($out -ne 'spout_stream ${{ steps.version.outputs.value }}') { throw "Version incorrecte : $out" }
+          $out
 
       - name: Package
         shell: pwsh
