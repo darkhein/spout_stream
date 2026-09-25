@@ -52,7 +52,7 @@ Il y a deux sortes de tests :
 
 ## Installation (portable)
 
-`build.bat` produit le dossier `install\`, qui contient `spout_stream.exe`, ce README et la licence de Spout2. Pour déployer le programme sur un autre poste, copiez ce dossier où vous voulez. Aucune installation n'est nécessaire : le runtime C++ et Spout sont compilés dans l'exécutable, qui n'utilise que des DLL fournies avec Windows 10/11.
+`build.bat` produit le dossier `install\`, qui contient `spout_stream.exe`, ce README, la licence du projet et celle de Spout2. Pour déployer le programme sur un autre poste, copiez ce dossier où vous voulez. Aucune installation n'est nécessaire : le runtime C++ et Spout sont compilés dans l'exécutable, qui n'utilise que des DLL fournies avec Windows 10/11.
 
 ## Utilisation
 
@@ -101,3 +101,7 @@ Voir [CONTRIBUTING.md](CONTRIBUTING.md).
 ## Dépendances
 
 [Spout2](https://github.com/leadedge/Spout2) (licence BSD 2 clauses) est compilé dans l'exécutable. Sa licence est livrée avec chaque version, dans `LICENSE-Spout2.txt`.
+
+## Licence
+
+Ce projet est distribué sous licence [MIT](LICENSE).

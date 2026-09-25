@@ -46,7 +46,7 @@ target_link_libraries(spout_stream PRIVATE spoutdx dwmapi windowsapp)
 
 # Dossier portable : cmake --install build --prefix install
 install(TARGETS spout_stream RUNTIME DESTINATION .)
-install(FILES README.md DESTINATION .)
+install(FILES README.md LICENSE DESTINATION .)
 # Licence BSD de Spout2, a redistribuer avec le binaire
 install(FILES ${SPOUT2_DIR}/SPOUTSDK/licence.txt DESTINATION . RENAME LICENSE-Spout2.txt)
 
