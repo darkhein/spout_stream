@@ -1,0 +1,7 @@
+build/
+build-*/
+install/
+dist/
+third_party/
+.vs/
+*.user

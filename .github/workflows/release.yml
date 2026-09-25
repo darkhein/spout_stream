@@ -1,0 +1,45 @@
+name: Release
+
+# Publier une version : git tag v1.2.0 && git push origin v1.2.0
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Version
+        id: version
+        shell: pwsh
+        run: |
+          $version = '${{ github.ref_name }}'.TrimStart('v')
+          "value=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Configure
+        run: cmake -S . -B build -A x64 -DAPP_VERSION=${{ steps.version.outputs.value }}
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Tests
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: Package
+        shell: pwsh
+        run: |
+          cmake --install build --config Release --prefix spout_stream
+          Compress-Archive -Path spout_stream -DestinationPath "spout_stream-${{ github.ref_name }}-win64.zip"
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: spout_stream-${{ github.ref_name }}-win64.zip
+          generate_release_notes: true
